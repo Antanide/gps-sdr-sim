@@ -2008,20 +2008,20 @@ int main(int argc, char *argv[])
 				}
 			}
 		}
-		else
-		{
-			if (subGpsTime(g0, gmin)<0.0 || subGpsTime(gmax, g0)<0.0)
-			{
-				fprintf(stderr, "ERROR: Invalid start time.\n");
-				fprintf(stderr, "tmin = %4d/%02d/%02d,%02d:%02d:%02.0f (%d:%.0f)\n", 
-					tmin.y, tmin.m, tmin.d, tmin.hh, tmin.mm, tmin.sec,
-					gmin.week, gmin.sec);
-				fprintf(stderr, "tmax = %4d/%02d/%02d,%02d:%02d:%02.0f (%d:%.0f)\n", 
-					tmax.y, tmax.m, tmax.d, tmax.hh, tmax.mm, tmax.sec,
-					gmax.week, gmax.sec);
-				exit(1);
-			}
-		}
+//		else
+//		{
+//			if (subGpsTime(g0, gmin)<0.0 || subGpsTime(gmax, g0)<0.0)
+//			{
+//				fprintf(stderr, "ERROR: Invalid start time.\n");
+//				fprintf(stderr, "tmin = %4d/%02d/%02d,%02d:%02d:%02.0f (%d:%.0f)\n", 
+//					tmin.y, tmin.m, tmin.d, tmin.hh, tmin.mm, tmin.sec,
+//					gmin.week, gmin.sec);
+//				fprintf(stderr, "tmax = %4d/%02d/%02d,%02d:%02d:%02.0f (%d:%.0f)\n", 
+//					tmax.y, tmax.m, tmax.d, tmax.hh, tmax.mm, tmax.sec,
+//					gmax.week, gmax.sec);
+//				exit(1);
+//			}
+//		}
 	}
 	else
 	{
@@ -2054,7 +2054,10 @@ int main(int argc, char *argv[])
 		if (ieph>=0) // ieph has been set
 			break;
 	}
-
+        if (subGpsTime(gmax,g0) < 0.0)
+  	{
+		ieph = neph -1;
+  	}
 	if (ieph == -1)
 	{
 		fprintf(stderr, "ERROR: No current set of ephemerides has been found.\n");
